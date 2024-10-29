@@ -8,9 +8,10 @@ on:
     branches: ["Aula_1"]
   pull_request:
     branches: ["Aula_1"]
+
 jobs:
   test:
-    runs-on: ubutu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Set up Go
@@ -23,11 +24,13 @@ jobs:
         run: docker-compose up -d
       - name: Test
         run: go test -v main_test.go
-build:
-  runs-on: ubuntu-latest
-  needs: test
-  steps:
-    - uses: actions/checkooout@v4
-    - name: Build
-      run: go build -v main.go
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: go build -v main_test.go
+
 
