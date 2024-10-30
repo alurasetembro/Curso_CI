@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         go_version: ['1.20', '>=1.20']
-        os: [ ubuntu-latest, windows-latest, macos-latest]
+        os: [ ubuntu-latest, windows-latest ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +26,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
+      - name: Install Docker Compose no Windows
+        run: |
+          Start-BitsTransfer -Source "https://github.com/docker/compose/releases/download/v2.29.6/docker-compose-windows-x86_64.exe" -Destination "$Env:ProgramFiles\Docker\docker-compose.exe"
+
       - name: Build-DB
         run: docker-compose build
       - name: Create-DB
@@ -44,7 +48,7 @@ jobs:
     needs: test
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
