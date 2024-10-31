@@ -1,13 +1,12 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go
-
-on:
-  push:
-    branches: ['*']
-  pull_request:
-    branches: ['*']
+name: Go CI
+on: 
+  push: 
+    branches: ['*'] 
+  pull_request: 
+    branches: ['*'] 
 
 jobs:
   test:
@@ -17,7 +16,8 @@ jobs:
         go_version: ['1.18', '>=1.18']
         os: ['ubuntu-latest', 'ubuntu-18.04']
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -41,13 +41,14 @@ jobs:
 
   build:
     runs-on: ${{ matrix.os }}
-     strategy:
+    strategy:
       matrix:
-        
         os: ['ubuntu-latest', 'ubuntu-18.04']
     needs: test
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Build
         run: go build -v main.go
+
 
