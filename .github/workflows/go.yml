@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.self-hosted }}
+    runs-on: self-hosted
     strategy:
       matrix:
         go_version: ['1.18', '>=1.18']
@@ -40,7 +40,7 @@ jobs:
         run: go test -v main_test.go
 
   build:
-    runs-on: ${{ matrix.self-hosted }}
+    runs-on: self-hosted
     strategy:
       matrix:
         os: ['ubuntu-latest', 'ubuntu-18.04']
